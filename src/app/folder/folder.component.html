@@ -1,0 +1,27 @@
+<div class="view-port">
+    <div class="container">
+        <div class="title">Folder Structure</div><br>
+        <div class="content">
+
+            <button mat-raised-button (click)="add_more_field()">Add Folder to Root</button>&nbsp;
+
+            <div *ngIf="add_more_field">
+                <section *ngFor="let address of inputfolder; let i = index;">
+                    
+                    <mat-form-field class="example-full-width">
+                        <input matInput #itemValue name="firstname" type="folder" required>
+                            <mat-error *ngIf="!address.input">
+                                required
+                            </mat-error>
+                    </mat-form-field>&nbsp;
+                    <button mat-raised-button><mat-icon>add</mat-icon></button>&nbsp;
+                    <button mat-raised-button (click)="removeAddress(i)"><mat-icon>delete</mat-icon></button>&nbsp;
+                    <button mat-raised-button (click)="save(itemValue.value)"><mat-icon>save</mat-icon> save </button>
+
+                    {{ address | json }}
+                </section>
+            </div>
+
+        </div>
+    </div>
+</div>
