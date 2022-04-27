@@ -3,9 +3,17 @@
         <div class="title">Folder Structure</div><br>
         <div class="content">
 
-            <div *ngFor="let data of TREE_DATA; let i = index">
-                {{ data.name }}
-            </div>
+            <ul>
+                <ng-template #recursiveList let-TREE_DATA>
+                  <li *ngFor="let item of TREE_DATA" style="margin-left:30px; margin-bottom: 5px;">
+                    {{item.name}}
+                    <ul *ngIf="item.children?.length > 0" style="margin-bottom: 5px;">
+                      <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: item.children }"></ng-container>
+                    </ul>
+                  </li>
+                </ng-template>
+                <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: TREE_DATA }"></ng-container>
+            </ul>
 
         </div>
     </div>
