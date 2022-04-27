@@ -7,11 +7,13 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { FolderComponent } from './folder/folder.component';
 import { MatComponentsModule } from './mat-components.module';
+import { DynamicFolderComponent } from './dynamic-folder/dynamic-folder.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FolderComponent
+    FolderComponent,
+    DynamicFolderComponent
   ],
   imports: [
     BrowserModule,
