@@ -5,18 +5,44 @@
 
             <button mat-raised-button (click)="add_more_field()">Add Folder to Root</button>&nbsp;
 
-            <div *ngIf="add_more_field">
-                <section *ngFor="let address of inputfolder; let i = index;">
+            <div *ngIf="show_form ">
+                <form [formGroup]="folderdetails">
+
+                    <mat-form-field *ngIf="!add_more_field">
+                        <mat-label>Choose an option</mat-label>
+                        <mat-select formControlName="choice">
+                        <mat-option value="folder">Folder</mat-option>
+                        <mat-option value="file">file</mat-option>
+                        </mat-select>
+                    </mat-form-field>&nbsp;
 
                     <mat-form-field class="example-full-width">
-                        <input matInput #itemValue name="firstname" type="folder" required>
+                        <input matInput #itemValue name="name" type="folder" formControlName="name">
+                            <mat-error *ngIf="folderdetails.get('name')?.hasError('required')">
+                                Name is <strong>required</strong>...
+                            </mat-error>
                     </mat-form-field>&nbsp;
-                    <button mat-raised-button ><mat-icon>add</mat-icon></button>&nbsp;
-                    <button mat-raised-button (click)="removeAddress(i)"><mat-icon>delete</mat-icon></button>&nbsp;
 
-                </section>
+                    <button mat-raised-button (click)="add_data()"><mat-icon>add</mat-icon></button>&nbsp;
+
+                </form>
             </div>
+                <!-- <section *ngFor="let address of inputfolder; let i = index;"> -->
+                    <ul>
+                        <ng-template #recursiveList let-inputfolder>
+                          <li *ngFor="let item of inputfolder; let i = index;" style="margin-left:30px; margin-bottom: 5px;">
+                            {{item.name}}&nbsp;
 
+                            <mat-icon (click)="removeAddress(i)" style="margin-top: 5px;">delete</mat-icon>&nbsp;
+
+                            <!-- <ul *ngIf="item.children?.length > 0" style="margin-bottom: 5px;">
+                              <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: item.children }"></ng-container>
+                            </ul> -->
+                          </li>
+                        </ng-template>
+                        <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: inputfolder }"></ng-container>
+                    </ul>
+                <!-- </section> -->
         </div>
     </div>
 </div> 
