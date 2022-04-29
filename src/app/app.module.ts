@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { FolderComponent } from './folder/folder.component';
 import { MatComponentsModule } from './mat-components.module';
 import { DynamicFolderComponent } from './dynamic-folder/dynamic-folder.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { DynamicFolderComponent } from './dynamic-folder/dynamic-folder.componen
     BrowserAnimationsModule,
     MatComponentsModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
