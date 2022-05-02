@@ -8,65 +8,63 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class DynamicFolderComponent implements OnInit {
 
-  show_form = false;
-  @Input() public inputfolder: any[] = [];
-  folderdetails!: any;
-  show_select = false;
-  subfolderdetails!: any;
+  showForm = false;
+  @Input() public inputFolder: string[] = [];
+  folderDetailsForm!: any;
+  subFolderDetailsForm!: any;
 
-  constructor( private formBuilder : FormBuilder ) { 
+  constructor(private formBuilder: FormBuilder) {
     this.folderdata();
   }
 
-  ngOnInit(): void {
-    // console.log(this.inputfolder);
-  }
+  ngOnInit(): void { }
 
   folderdata() {
-    this.folderdetails = this.formBuilder.group({
-      choice: ['', [Validators.required]],
+    this.folderDetailsForm = this.formBuilder.group({
+      type: ['', [Validators.required]],
       name: ['', [Validators.required]],
-      chidren: [[]]
+      children: this.formBuilder.array([])
     }),
 
-    this.subfolderdetails = this.formBuilder.group({
-      subchoice: ['', [Validators.required]],
-      subname: ['', [Validators.required]]
-    })
+      this.subFolderDetailsForm = this.formBuilder.group({
+        type: ['', [Validators.required]],
+        name: ['', [Validators.required]],
+        children: this.formBuilder.array([])
+      })
   }
 
-  add_more_field() {
-    this.show_form = true;
-    this.show_select = false;
-    this.folderdetails.controls['choice'].setValue('folder');
+  addRootFolder() {
+    this.showForm = true;
+    this.folderDetailsForm.controls['type'].setValue('folder');
   }
 
-  add_data() {
-    if (this.folderdetails.valid) {
-      this.inputfolder.push(this.folderdetails.value);
-      console.log(this.inputfolder);
-      this.show_form = false;
-      this.folderdetails.reset();
-    }    
-  }
-
-  addsubfolder(item: any) {
-    item.show_select = true;
-    this.show_form = false;
-  }
-
-  removeAddress(i: number) {
-    this.inputfolder.splice(i, 1);
-  }
-
-  add_subdata(i:number ,item: any) {
-    if (this.subfolderdetails.valid) {
-      if (item){
-        this.inputfolder[i].chidren.push(this.subfolderdetails.value);
-        console.log(this.inputfolder);
-        item.show_select=false;
-      }
+  addData() {
+    if (this.folderDetailsForm.valid) {
+      this.inputFolder.push(this.folderDetailsForm.value);
+      console.log(this.inputFolder);
+      this.showForm = false;
+      this.folderDetailsForm.reset();
     }
+  }
+
+  addSubFolder(item: any) {
+    item.showSubData = true;
+    this.showForm = false;
+  }
+
+  removeFolder(i: number, item: any) {
+    console.log(item);
+    item.splice(i, 1);
+  }
+
+  addSubData(item: any) {
+    if (this.subFolderDetailsForm.valid && item) {
+      console.log(item);
+      item.children.push(this.subFolderDetailsForm.value);
+      console.log(this.inputFolder);
+      item.showSubData = false;
+    }
+    this.subFolderDetailsForm.reset();
   }
 
 }

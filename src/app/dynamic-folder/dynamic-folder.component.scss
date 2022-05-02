@@ -5,7 +5,6 @@
 }
 
 .view-port {
-    height: 70vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -32,4 +31,10 @@
 
 button {
     color: black;
+}
+
+textarea {
+    margin-top: 20px;
+    width: 350px;
+    height: 150px;
 }
