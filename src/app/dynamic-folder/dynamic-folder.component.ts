@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-dynamic-folder',
@@ -10,8 +10,8 @@ export class DynamicFolderComponent implements OnInit {
 
   showForm = false;
   @Input() public inputFolder: string[] = [];
-  folderDetailsForm!: any;
-  subFolderDetailsForm!: any;
+  folderDetailsForm!: FormGroup;
+  subFolderDetailsForm!: FormGroup;
 
   constructor(private formBuilder: FormBuilder) {
     this.folderdata();
@@ -60,9 +60,11 @@ export class DynamicFolderComponent implements OnInit {
   addSubData(item: any) {
     if (this.subFolderDetailsForm.valid && item) {
       console.log(item);
+      console.log(this.subFolderDetailsForm.value);
       item.children.push(this.subFolderDetailsForm.value);
-      console.log(this.inputFolder);
+      console.log(item);
       item.showSubData = false;
+      delete item.showSubData;
     }
     this.subFolderDetailsForm.reset();
   }
